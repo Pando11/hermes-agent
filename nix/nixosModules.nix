@@ -32,11 +32,8 @@
       else cfg.package.override { inherit (cfg) extraPythonPackages; };
     hermes-agent = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
-    # Derive a human-readable plugin name.  fetchFromGitHub yields name="source",
-    # so we fall through to baseNameOf which gives the store hash prefix — not
-    # ideal but unique.  Users can set name= on their fetchFromGitHub to override.
-    pluginName = plugin:
-      plugin.pname or plugin.name or (builtins.baseNameOf (toString plugin));
+    # Derive a human-readable plugin name from a derivation.
+    pluginName = plugin: lib.getName plugin;
 
     # Deep-merge config type (from 0xrsydn/nix-hermes-agent)
     deepConfigType = lib.types.mkOptionType {

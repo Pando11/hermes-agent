@@ -122,7 +122,7 @@ for di in venv_sp.glob('*.dist-info'):
                 break
 
 # Check each extra package for collisions
-extras_dirs = '${lib.concatMapStringsSep ":" toString extraPythonPackages}'.split(':')
+extras_dirs = [${lib.concatMapStringsSep ", " (p: "'${toString p}'") extraPythonPackages}]
 for edir in extras_dirs:
     sp = pathlib.Path(edir) / '${sitePackagesPath}'
     if not sp.exists():

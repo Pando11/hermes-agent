@@ -4,7 +4,7 @@
 # transitive deps like onnxruntime that lack compatible wheels on
 # aarch64-darwin. The package and devShell still work on macOS.
 { inputs, ... }: {
-  perSystem = { pkgs, system, lib, inputs', ... }:
+  perSystem = { pkgs, system, lib, ... }:
     let
       hermes-agent = inputs.self.packages.${system}.default;
       hermesVenv = hermes-agent.hermesVenv;
